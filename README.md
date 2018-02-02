@@ -11,11 +11,12 @@ Just imagine your `.co` users canceling autocompletion to `.com`, etc, etc.
 There are NO 4-letter or less `.com` domains available at the time of writing.  
 All in use or For $$$$ale by squatters.
 
-But, there are a lot of 5-letter `.com`-s waiting for you, for about $10/year only.  
+But, there are a lot of 5-letter `.com`-s waiting for you, for about $12/year only.  
 `google.com` is 6-letter, just like `denisr.com` is.
 
 It is really hard to find great short `.com` domain just guessing.  
-Tools I have seen did not satisfied me either.  
+Tools seen in 2013 did not satisfy me either.  
+Later in 2018: https://www.nameql.com/ and https://domainr.com/ are great.
 
 So I have created a simple [`shortcom.py`](https://github.com/denis-ryzhkov/shortcom/blob/master/shortcom.py) script.  
 It starts with config section:
@@ -49,6 +50,6 @@ assuming it is regularly hard to spell more than two consonants in a row. Howeve
 
 That's all. Download the script, tailor config to your needs, and run it!
 
-shortcom version 0.0.2  
-Copyright (C) 2013 by Denis Ryzhkov <denisr@denisr.com>  
+shortcom version 0.1.3  
+Copyright (C) 2013-2018 by Denis Ryzhkov <denisr@denisr.com>  
 MIT License, see http://opensource.org/licenses/MIT

@@ -3,8 +3,8 @@
 '''
 See https://github.com/denis-ryzhkov/shortcom/blob/master/README.md
 
-shortcom version 0.0.2
-Copyright (C) 2013 by Denis Ryzhkov <denisr@denisr.com>
+shortcom version 0.1.3
+Copyright (C) 2013-2018 by Denis Ryzhkov <denisr@denisr.com>
 MIT License, see http://opensource.org/licenses/MIT
 '''
 
@@ -19,7 +19,7 @@ skip_until = None
 command_format = 'whois -h whois.verisign-grs.com -H ={domain}'
 taken_substring = 'Registrar: '
 available_substring = 'No match for "'
-sleep_seconds = 0.5
+sleep_seconds = 2
 
 taken_path = 'taken.txt'
 available_path = 'available.txt'
@@ -34,7 +34,7 @@ from subprocess import Popen, PIPE
 taken_file = open(taken_path, 'a')
 available_file = open(available_path, 'a')
 
-for domain in product(*([chars] * quantity)):
+for domain in product(chars, repeat=quantity):
     domain = prefix + ''.join(domain) + postfix
 
     if skip_until:
@@ -43,8 +43,19 @@ for domain in product(*([chars] * quantity)):
         else:
             continue
 
-    stdout, stderr = Popen(command_format.format(domain=domain), shell=True, stdout=PIPE, stderr=PIPE).communicate()
-    output = stdout + stderr
+    while True:
+        stdout, stderr = Popen(command_format.format(domain=domain), shell=True, stdout=PIPE, stderr=PIPE).communicate()
+        output = stdout + stderr
+
+        if (
+            'Connection reset by peer' in stderr or
+            'Connection refused' in stderr or
+            'Timeout' in stderr
+        ):
+            print(output)
+            sleep(sleep_seconds)
+            continue
+        break
 
     if taken_substring in output:
         is_taken = True
